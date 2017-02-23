@@ -173,7 +173,6 @@ function draw() {
   fill(heart_fill);
   strokeWeight(2);
   draw_heart(mouseX, mouseY, 10);
-
   //jumps to ending page
   if (time>353) {
     window.location.href = 'end.html';
@@ -182,6 +181,13 @@ function draw() {
 }
 
 function mouseClicked() {
+  //adds a heart to the hearts array on mouse click
+  var play_time = she.currentTime();
+  var time = str(floor(play_time));
+  hearts.push(new Heart(0, mouseX, mouseY));
+}
+
+function touchStarted() {
   //adds a heart to the hearts array on mouse click
   var play_time = she.currentTime();
   var time = str(floor(play_time));
