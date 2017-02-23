@@ -174,8 +174,10 @@ function draw() {
   strokeWeight(2);
   draw_heart(mouseX, mouseY, 10);
   //jumps to ending page
-  if (time>353) {
-    window.location.href = 'end.html';
+
+  //if (time>353) {
+  if (time>5) {
+    location.href = 'end.html';
   }
 
 }
