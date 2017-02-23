@@ -115,7 +115,7 @@ var messages = []; // array of message objects
 function setup() {
   createCanvas(windowWidth, windowHeight);
   //frameRate(120);
-  noCursor();
+  //noCursor();
 
   for (var i = 0; i < table.getRowCount(); i++) {
     var m_text = table.getString(i,'text');
@@ -168,15 +168,14 @@ function draw() {
   }
   var t1 = performance.now();
 
-//draws a small hearrt under the mouse cursor
-  stroke(heart_stroke);
-  fill(heart_fill);
-  strokeWeight(2);
-  draw_heart(mouseX, mouseY, 10);
-  //jumps to ending page
+// //draws a small hearrt under the mouse cursor
+//   stroke(heart_stroke);
+//   fill(heart_fill);
+//   strokeWeight(2);
+//   draw_heart(mouseX, mouseY, 10);
+//   //jumps to ending page
 
-  //if (time>353) {
-  if (time>5) {
+  if (time>353) {
     location.href = 'end.html';
   }
 
