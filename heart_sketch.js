@@ -176,7 +176,7 @@ function draw() {
 //   //jumps to ending page
 
   if (time>353) {
-    location.href = 'end.html';
+    location.href = 'index.html';
   }
 
 }
