@@ -222,7 +222,7 @@ function draw() {
 
 
   //jumps back to index page again (at 353)
-  if (time>50) {
+  if (time>353) {
     //location.href = 'index.html'; (desktop ony)
     //window.location.href = 'index_mobile.html';
     window.location = 'index_mobile.html';
