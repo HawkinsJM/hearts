@@ -192,13 +192,13 @@ function draw() {
 //   draw_heart(mouseX, mouseY, 10);
 
   //jumps back to index page again (at 353)
-  if (time>3) {
+  if (time>340) {
     location.href = 'index.html';
     window.location.href = 'index_mobile.html';
     window.location = 'index_mobile.html';
   }
 //attemts to end script if redirects fail
-  if (time>355) {
+  if (time>342) {
     remove();
   }
 
