@@ -1,80 +1,99 @@
-//make it fit the window and acomidate resiing - couldnt get live resizing to work...
-
 var table;
-var text_color = "#FADADD"
+
+//set colors
+
 var bg_color = "#FEB9C7"
 var heart_fill = '#C43B53'
 var heart_stroke = '#DD6C89'
+var text_color = "white"
+var text_stroke = 'pink'
 
+
+//this is the function that draws a heart on the page at (x,y) and s is a scaleing factor. The heart is drawn out of two circes, a rectangle, and a path.
 function draw_heart(x,y,s) {
-  var h_scale = s
-  var adj = h_scale/(2*sqrt(2));
+  var heart_scale = s
+  var adj = heart_scale/(2*sqrt(2));
 
+//draws two circles with stroke
   push();
     translate(x, y);
-    ellipse(-adj,adj,h_scale,h_scale);
-    ellipse(adj,adj,h_scale,h_scale);
+    ellipse(-adj,adj,heart_scale,heart_scale);
+    ellipse(adj,adj,heart_scale,heart_scale);
     rotate(radians(45));
-
+//draws a rectangle with no stroke covering half of each circle
        push();
        noStroke();
-       rect(0, 0, h_scale, h_scale);
+       rect(0, 0, heart_scale, heart_scale);
        pop();
-
+//draws in the missing stroke on the bottom half of the rectangle only
      beginShape();
-     vertex(0, h_scale);
-     vertex(h_scale, h_scale);
-     vertex(h_scale, 0);
+     vertex(0, heart_scale);
+     vertex(heart_scale, heart_scale);
+     vertex(heart_scale, 0);
      endShape();
 
    pop();
 }
 
+//This function creates a heart object with a built in display and update position method.
 function Heart(start, x, y) {
+  //generates a random speed for the heart.
   this.speed = 7*random([1,1.25,1.5,1.75, 2.25, 2.5]);
 
-  wh = (min(windowHeight,windowWidth)/10)*1.2
-  this.h_scale = random(wh*0.5, wh*1);
+  //calcuates a scale value for the heart based on the smallest window dimension.
+  var wh = (min(windowHeight,windowWidth)/10)*1.2
+  this.heart_scale = random(wh*0.5, wh*1);
 
+  //generates random start postions if none are specified
   if (x == "None"){
-  this.x = random(0+this.h_scale/2,width-this.h_scale);
-  this.y = random(this.h_scale/2+height, this.h_scale/2+height*1.5);
+  this.x = random(0+this.heart_scale/2,width-this.heart_scale);
+  this.y = random(this.heart_scale/2+height, this.heart_scale/2+height*1.5);
   }
-  //for mouse clicks
+  //for mouse clicks, generates postion that is under the click
   else{
     print("test")
     this.x = x;
-    this.y = y-this.h_scale/2;
+    this.y = y-this.heart_scale/2;
   }
+
   this.start = start;
 
+  //adjusts to sync the audio and the animation
   var start_delay = .75
+  //this function draws a heart where it is currently located and then moves it based on its speed. only does this for hearts that should be active in the scene
   this.display = function(play_time) {
-    if  (this.y > 0 -this.h_scale*1.2) {
+    //is it off the top of the screen?
+    if  (this.y > 0 -this.heart_scale*1.2) {
+      //is it time to start showing this heart yet?
       if (this.start <= play_time-start_delay) {
         //move
         this.x += random(-0, 0);
         this.y += random(-this.speed);
-        //display
-        draw_heart(this.x, this.y, this.h_scale);
+        //draw the heart if it is on screen
+        if (this.y < windowHeight + this.heart_scale*1.1){
+        draw_heart(this.x, this.y, this.heart_scale);}
     };
     };
   };
 }
-
+//This function generates a message object with built in display and update position functions. It's highly similar to Hearts so see comments there too.
 function Message(m_text, start) {
   this.m_text= m_text
-  this.m_text_length = this.m_text.length;
+  //finds the smallest dimension of the window and scales text
   this.text_scale = min(windowHeight,windowWidth)
   this.m_text_size = random(this.text_scale/15,this.text_scale/10);
+  //picks a random width for the text box
   this.width = random(windowWidth*.3334,windowWidth);
+  //sets text boxes to be 4 lines
   this.height = this.m_text_size*4
-  this.h_scale = this.m_text_length*this.m_text_size/200
-
+  //sets starting position for message, starting position extends well below page so that the objects have time to spread out before being displayed
+  this.y = random(this.m_text_size+height, this.m_text_size+height*1.5);
   this.x = random(0,width-this.width);
+
+  //calculates speed from a set of possible values for how long the object should take to cross the screen, based on 60fps
   this.timeonscreen = random([.3,.4,.5,.6,.7]);
   this.speed = windowHeight/(60*this.timeonscreen);
-  this.y = random(this.h_scale/2+height, this.h_scale/2+height*1.5);
+
   this.start = start;
 
 
@@ -82,17 +101,11 @@ function Message(m_text, start) {
   this.display = function(play_time) {
     if  (this.y > 0 -this.height) {
       if (this.start <= play_time-start_delay) {
-        //move
+        //updates position based on speed
         this.y += random(-this.speed);
-        //display
-        stroke('pink');
-        strokeWeight(4);
-        //noStroke();
+        //displays message
+        //sets text size and displays text constrained in its box
         textSize(this.m_text_size);
-        noFill();
-        fill('white')
-        //fill(text_color);
-        textAlign(CENTER);
         text(this.m_text, this.x, this.y, this.width, this.height);
     };
     };
@@ -100,23 +113,21 @@ function Message(m_text, start) {
 }
 
 function preload() {
+  //load in the csv file
   table = loadTable("assets/nchearts.csv", "csv", "header");
+  //load in the sound file
   she = loadSound('assets/nc2x.mp3');
 
 }
 
-//the file can be remote
-  //table = loadTable("http://p5js.org/reference/assets/mammals.csv",
-  //                  "csv", "header");
-
-var hearts = []; // array of heart objects
-var messages = []; // array of message objects
+var hearts = []; // create array for heart objects
+var messages = []; // create array for message objects
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  //frameRate(120);
   //noCursor();
 
+  //scan through table enteries and create a new message for each row where 'text' is not blank
   for (var i = 0; i < table.getRowCount(); i++) {
     var m_text = table.getString(i,'text');
     if (m_text != ''){
@@ -125,7 +136,7 @@ function setup() {
     }
 
 
-
+    //scan through table enteries and create the number of hearts specified in the 'hearts' column
     var heart_count = int(table.getString(i,'hearts'));
     var start_time = int(table.getString(i,'duration'));
 
@@ -138,58 +149,60 @@ function setup() {
 
 
   //count the columns
-  print(table.getRowCount() + " total rows in table");
-  print(table.getColumnCount() + " total columns in table");
-  print(hearts.length + " hearts.");
+  // print(table.getRowCount() + " total rows in table");
+  // print(table.getColumnCount() + " total columns in table");
+  // print(hearts.length + " hearts.");
+
+  //sets volume and plays track
   she.setVolume(0.1);
   she.play();
 }
 
 function draw() {
-  //blendMode(REPLACE);
   background(bg_color);
-  var play_time = she.currentTime();
-  var time = str(floor(play_time));
+
+  //find the time the track has been playing for
+  var time = she.currentTime();
 
   //draw and move all the hearts
-  var t0 = performance.now();
+  //var t0 = performance.now();
+  //set heart properties
   stroke(heart_stroke);
   fill(heart_fill);
   strokeWeight(2);
   for (var i = 0; i < hearts.length; i++) {
     hearts[i].display(time)
   }
-  var t1 = performance.now();
+  //var t1 = performance.now();
 
   //draw and move all the messages
-  var t0 = performance.now();
+  //var t0 = performance.now();
+  //set text properties
+  stroke(text_stroke);
+  strokeWeight(4);
+  noFill();
+  fill(text_color)
+  textAlign(CENTER);
   for (var i = 0; i < messages.length; i++) {
     messages[i].display(time)
   }
-  var t1 = performance.now();
+  //var t1 = performance.now();
 
 // //draws a small hearrt under the mouse cursor
 //   stroke(heart_stroke);
 //   fill(heart_fill);
 //   strokeWeight(2);
 //   draw_heart(mouseX, mouseY, 10);
-//   //jumps to ending page
 
+  //jumps back to index page again
   if (time>353) {
     location.href = 'index_mobile.html';
   }
 
 }
 
-function mouseClicked() {
-  //adds a heart to the hearts array on mouse click
-  var play_time = she.currentTime();
-  var time = str(floor(play_time));
-  hearts.push(new Heart(0, mouseX, mouseY));
-}
-
 function touchStarted() {
-  //adds a heart to the hearts array on mouse click
+  //adds a heart to the hearts array on mouse click ot screen tap
   var play_time = she.currentTime();
   var time = str(floor(play_time));
   hearts.push(new Heart(0, mouseX, mouseY));
