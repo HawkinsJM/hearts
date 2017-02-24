@@ -51,7 +51,6 @@ function Heart(start, x, y) {
   }
   //for mouse clicks, generates postion that is under the click
   else{
-    print("test")
     this.x = x;
     this.y = y-this.heart_scale/2;
   }
@@ -131,7 +130,6 @@ function setup() {
   for (var i = 0; i < table.getRowCount(); i++) {
     var m_text = table.getString(i,'text');
     if (m_text != ''){
-      print(m_text)
       messages.push(new Message(m_text, start_time));
     }
 
@@ -143,7 +141,6 @@ function setup() {
     for (var j = 0; j < heart_count; j++) {
       hearts.push(new Heart(start_time, "None", "None"));
     }
-
   };
 
 
