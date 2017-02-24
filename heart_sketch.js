@@ -64,7 +64,7 @@ function Heart(start, x, y) {
     //is it off the top of the screen?
     if  (this.y > 0 -this.heart_scale*1.2) {
       //is it time to start showing this heart yet?
-      if (this.start <= play_time-start_delay) {
+      if (play_time-14 < this.start && this.start < play_time-start_delay) {
         //move
         this.x += random(-0, 0);
         this.y += random(-this.speed);
@@ -99,7 +99,7 @@ function Message(m_text, start) {
   var start_delay = 2
   this.display = function(play_time) {
     if  (this.y > 0 -this.height) {
-      if (this.start <= play_time-start_delay) {
+      if (play_time-7 < this.start && this.start < play_time-start_delay) {
         //updates position based on speed
         this.y += random(-this.speed);
         //displays message
@@ -194,6 +194,10 @@ function draw() {
   //jumps back to index page again
   if (time>353) {
     location.href = 'index_mobile.html';
+  }
+
+  if (time>355) {
+    remove();
   }
 
 }
