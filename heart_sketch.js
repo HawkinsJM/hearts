@@ -64,7 +64,7 @@ function Heart(start, x, y) {
     //is it off the top of the screen?
     if  (this.y > 0 -this.heart_scale*1.2) {
       //is it time to start showing this heart yet?
-      if (play_time-14 < this.start && this.start < play_time-start_delay) {
+      if (play_time-35 < this.start && this.start < play_time-start_delay) {
         //move
         this.x += random(-0, 0);
         this.y += random(-this.speed);
@@ -99,7 +99,7 @@ function Message(m_text, start) {
   var start_delay = 2
   this.display = function(play_time) {
     if  (this.y > 0 -this.height) {
-      if (play_time-7 < this.start && this.start < play_time-start_delay) {
+      if (play_time-14 < this.start && this.start < play_time-start_delay) {
         //updates position based on speed
         this.y += random(-this.speed);
         //displays message
@@ -191,11 +191,13 @@ function draw() {
 //   strokeWeight(2);
 //   draw_heart(mouseX, mouseY, 10);
 
-  //jumps back to index page again
-  if (time>353) {
-    location.href = 'index_mobile.html';
+  //jumps back to index page again (at 353)
+  if (time>3) {
+    location.href = 'index.html';
+    window.location.href = 'index_mobile.html';
+    window.location = 'index_mobile.html';
   }
-
+//attemts to end script if redirects fail
   if (time>355) {
     remove();
   }
@@ -204,7 +206,6 @@ function draw() {
 
 function touchStarted() {
   //adds a heart to the hearts array on mouse click ot screen tap
-  var play_time = she.currentTime();
-  var time = str(floor(play_time));
-  hearts.push(new Heart(0, mouseX, mouseY));
+  var time = she.currentTime();
+  hearts.push(new Heart(time-1, mouseX, mouseY));
 }
