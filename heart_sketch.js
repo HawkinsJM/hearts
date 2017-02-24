@@ -1,3 +1,5 @@
+//hearts spawn too high wen phone tuned sideways and then back again, use canvas size instead of window size? Ya.. this
+
 var table;
 
 //set colors
@@ -193,13 +195,14 @@ function draw() {
 
   //jumps back to index page again (at 353)
   if (time>340) {
-    location.href = 'index.html';
-    window.location.href = 'index_mobile.html';
+    //location.href = 'index.html'; (desktop ony)
+    //window.location.href = 'index_mobile.html';
     window.location = 'index_mobile.html';
   }
 //attemts to end script if redirects fail
   if (time>342) {
     remove();
+    noLoop();
   }
 
 }
