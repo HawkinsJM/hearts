@@ -47,6 +47,8 @@ function Heart(start, x, y) {
   this.speed = 7*random([1,1.25,1.5,1.75, 2.25, 2.5]);
 
   //calcuates a scale value for the heart based on the smallest window dimension.
+  //fixes window hight incase it changes later
+  this.win_height = windowHeight
   var wh = (min(windowHeight,windowWidth)/10)*1.2
   this.heart_scale = random(wh*0.5, wh*1);
 
@@ -75,7 +77,7 @@ function Heart(start, x, y) {
         this.x += random(-0, 0);
         this.y += random(-this.speed);
         //draw the heart if it is on screen
-        if (this.y < windowHeight + this.heart_scale*1.1){
+        if (this.y < this.win_height + this.heart_scale*1.1){
         draw_heart(this.x, this.y, this.heart_scale);}
     };
     };
@@ -159,17 +161,15 @@ function setup() {
   // print(hearts.length + " hearts.");
 
   //sets volume and plays track
-  //she.setVolume(0.1);
-  //she.play();
-  loadTime = (new Date()-startTime)/1000;
-  print("loadtime is")
-  print(loadTime)
-  frame = createElement("iframe");
-  frame.attribute("src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false")
+  she.setVolume(0.1);
+  she.play();
 
-
-  //'"width="200" height="400" scrolling="no" frameborder="yes" style="position: absolute; left: 0; bottom: 0;" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false"'
-  print("dome created")
+  // frame = createElement("iframe");
+  // frame.attribute("src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false")
+  // loadTime = (new Date()-startTime)/1000;
+  // print("loadtime is")
+  // print(loadTime)
+  // print("dome created")
 }
 
 var s2 = 0;
@@ -214,15 +214,15 @@ function draw() {
 //   strokeWeight(2);
 //   draw_heart(mouseX, mouseY, 10);
 
-  if (time >173 && s2 == 0) {
-    s2 = 1
-    frame2 = createElement("iframe");
-    frame2.attribute("src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false")
-  }
+  // if (time >173 && s2 == 0) {
+  //   s2 = 1
+  //   frame2 = createElement("iframe");
+  //   frame2.attribute("src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false")
+  // }
 
 
   //jumps back to index page again (at 353)
-  if (time>340) {
+  if (time>5) {
     //location.href = 'index.html'; (desktop ony)
     //window.location.href = 'index_mobile.html';
     window.location = 'index_mobile.html';
