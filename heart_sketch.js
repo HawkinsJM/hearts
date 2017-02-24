@@ -4,6 +4,10 @@ var table;
 
 //set colors
 
+var startTime = new Date();
+var loadTime = 0;
+
+
 var bg_color = "#FEB9C7"
 var heart_fill = '#C43B53'
 var heart_stroke = '#DD6C89'
@@ -123,6 +127,8 @@ function preload() {
 
 var hearts = []; // create array for heart objects
 var messages = []; // create array for message objects
+var frame;
+var frame2;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -153,15 +159,30 @@ function setup() {
   // print(hearts.length + " hearts.");
 
   //sets volume and plays track
-  she.setVolume(0.1);
-  she.play();
+  //she.setVolume(0.1);
+  //she.play();
+  loadTime = (new Date()-startTime)/1000;
+  print("loadtime is")
+  print(loadTime)
+  frame = createElement("iframe");
+  frame.attribute("src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false")
+
+
+  //'"width="200" height="400" scrolling="no" frameborder="yes" style="position: absolute; left: 0; bottom: 0;" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false"'
+  print("dome created")
 }
 
+var s2 = 0;
 function draw() {
   background(bg_color);
 
+  var endTime = new Date();
+  var time=(endTime-startTime)/1000 - loadTime;
+  //print(loadTime)
+  //print(time)
+
   //find the time the track has been playing for
-  var time = she.currentTime();
+  //var time = she.currentTime();
 
   //draw and move all the hearts
   //var t0 = performance.now();
@@ -192,6 +213,13 @@ function draw() {
 //   fill(heart_fill);
 //   strokeWeight(2);
 //   draw_heart(mouseX, mouseY, 10);
+
+  if (time >173 && s2 == 0) {
+    s2 = 1
+    frame2 = createElement("iframe");
+    frame2.attribute("src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false")
+  }
+
 
   //jumps back to index page again (at 353)
   if (time>340) {
