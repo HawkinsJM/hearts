@@ -1,4 +1,5 @@
 //hearts spawn too high wen phone tuned sideways and then back again, use canvas size instead of window size? Ya.. this
+console.log("version whatup");
 
 var table;
 var time = 0;
