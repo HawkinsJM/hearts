@@ -1,5 +1,5 @@
 //hearts spawn too high wen phone tuned sideways and then back again, use canvas size instead of window size? Ya.. this
-console.log("version hello");
+console.log("version one");
 
 var table;
 var time = 0;
@@ -125,7 +125,7 @@ function preload() {
   //load in the csv file
   table = loadTable("assets/nchearts.csv", "csv", "header");
   //load in the sound file
-  she = loadSound('assets/nc2x.mp3');
+  she = loadSound('assets/thanks_cory.mp3');
 
 }
 
@@ -162,13 +162,6 @@ function setup() {
   // print(table.getColumnCount() + " total columns in table");
   // print(hearts.length + " hearts.");
 
-  //sets volume and plays track
-
-
-  // frame = createElement("iframe");
-  // frame.attribute("src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false")
-
-
 }
 
 var s2 = 0;
@@ -181,62 +174,57 @@ if (animate == 0){
   textAlign(CENTER);
   textSize(windowHeight/10);
   text("Tap/Click to Start", windowWidth/10,windowHeight*.7, windowWidth*.8, windowHeight*.3)
-}
-else {
+  }
+  else {
   var endTime = new Date();
   time=(endTime-startTime)/1000 - loadTime;
   //print(loadTime)
   //print(time)
 
-  //find the time the track has been playing for
-  //var time = she.currentTime();
+    //find the time the track has been playing for from song object
+    //var time = she.currentTime();
 
-  //draw and move all the hearts
-  //var t0 = performance.now();
-  //set heart properties
-  stroke(heart_stroke);
-  fill(heart_fill);
-  strokeWeight(2);
-  for (var i = 0; i < hearts.length; i++) {
-    hearts[i].display(time)
+    //draw and move all the hearts
+    //var t0 = performance.now();
+    //set heart properties
+    stroke(heart_stroke);
+    fill(heart_fill);
+    strokeWeight(2);
+    for (var i = 0; i < hearts.length; i++) {
+      hearts[i].display(time)
+    }
+    //var t1 = performance.now();
+
+    //draw and move all the messages
+    //var t0 = performance.now();
+    //set text properties
+    stroke(text_stroke);
+    strokeWeight(4);
+    noFill();
+    fill(text_color)
+    textAlign(CENTER);
+    for (var i = 0; i < messages.length; i++) {
+      messages[i].display(time)
+    }
+    //var t1 = performance.now();
+
+    //prints time on animation for debugging
+    // fill('black')
+    // textSize(20)
+    // text(floor(time),50,50)
+
+    // //draws a small hearrt under the mouse cursor
+    //   stroke(heart_stroke);
+    //   fill(heart_fill);
+    //   strokeWeight(2);
+    //   draw_heart(mouseX, mouseY, 10);
+
+    if (time>352) {
+      //location.href = 'index.html'; (desktop ony)
+      //window.location.href = 'index_mobile.html';
+      window.location = 'index_mobile.html';
+    }
   }
-  //var t1 = performance.now();
-
-  //draw and move all the messages
-  //var t0 = performance.now();
-  //set text properties
-  stroke(text_stroke);
-  strokeWeight(4);
-  noFill();
-  fill(text_color)
-  textAlign(CENTER);
-  for (var i = 0; i < messages.length; i++) {
-    messages[i].display(time)
-  }
-  fill('black')
-  textSize(20)
-  text(floor(time),50,50)
-  //var t1 = performance.now();
-
-// //draws a small hearrt under the mouse cursor
-//   stroke(heart_stroke);
-//   fill(heart_fill);
-//   strokeWeight(2);
-//   draw_heart(mouseX, mouseY, 10);
-
-  // if (time >173 && s2 == 0) {
-  //   s2 = 1
-  //   frame2 = createElement("iframe");
-  //   frame2.attribute("src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false")
-  // }
-
-
-  if (time>352) {
-    //location.href = 'index.html'; (desktop ony)
-    //window.location.href = 'index_mobile.html';
-    window.location = 'index_mobile.html';
-  }
-}
 
 }
 
