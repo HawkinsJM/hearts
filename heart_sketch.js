@@ -125,7 +125,7 @@ function preload() {
   //load in the csv file
   table = loadTable("assets/nchearts.csv", "csv", "header");
   //load in the sound file
-  she = loadSound('assets/thanks_cory.mp3');
+  she = loadSound('assets/thanks_corey.mp3');
 
 }
 
