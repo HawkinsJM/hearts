@@ -232,7 +232,7 @@ else {
   // }
 
 
-  if (time>340) {
+  if (time>352) {
     //location.href = 'index.html'; (desktop ony)
     //window.location.href = 'index_mobile.html';
     window.location = 'index_mobile.html';
