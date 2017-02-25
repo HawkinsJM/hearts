@@ -1,6 +1,7 @@
 //hearts spawn too high wen phone tuned sideways and then back again, use canvas size instead of window size? Ya.. this
 
 var table;
+var time = 0;
 
 //set colors
 
@@ -161,8 +162,7 @@ function setup() {
   // print(hearts.length + " hearts.");
 
   //sets volume and plays track
-  she.setVolume(0.1);
-  she.play();
+
 
   // frame = createElement("iframe");
   // frame.attribute("src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false")
@@ -173,16 +173,27 @@ function setup() {
 }
 
 var s2 = 0;
+var animate = 0;
 function draw() {
   background(bg_color);
 
-  var endTime = new Date();
-  var time=(endTime-startTime)/1000 - loadTime;
+if (animate == 0){
+  stroke(text_stroke);
+  strokeWeight(4);
+  noFill();
+  fill('white')
+  textAlign(CENTER);
+  textSize(windowHeight/10);
+  text("Tap/Click", windowWidth/2,windowHeight*.9)
+}
+else {
+  // var endTime = new Date();
+  // time=(endTime-startTime)/1000 - loadTime;
   //print(loadTime)
   //print(time)
 
   //find the time the track has been playing for
-  //var time = she.currentTime();
+  var time = she.currentTime();
 
   //draw and move all the hearts
   //var t0 = performance.now();
@@ -221,21 +232,23 @@ function draw() {
   // }
 
 
-  //jumps back to index page again (at 353)
-  if (time>353) {
+  if (time>15) {
     //location.href = 'index.html'; (desktop ony)
     //window.location.href = 'index_mobile.html';
     window.location = 'index_mobile.html';
   }
-//attemts to end script if redirects fail
-  if (time>342) {
-    remove();
-    noLoop();
-  }
-
+}
+  //jumps back to index page again (at 353)
 }
 
 function touchStarted() {
+  if (animate ==0){
+    animate = 1;
+    she.setVolume(0.1);
+    she.play();
+  }
+
+
   //adds a heart to the hearts array on mouse click ot screen tap
   var time = she.currentTime();
   hearts.push(new Heart(time-1, mouseX, mouseY));
