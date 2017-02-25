@@ -166,10 +166,8 @@ function setup() {
 
   // frame = createElement("iframe");
   // frame.attribute("src","https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/191189437&amp;auto_play=true&amp;hide_related=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false&amp;visual=false")
-  // loadTime = (new Date()-startTime)/1000;
-  // print("loadtime is")
-  // print(loadTime)
-  // print("dome created")
+
+
 }
 
 var s2 = 0;
@@ -178,22 +176,19 @@ function draw() {
   background(bg_color);
 
 if (animate == 0){
-  stroke(text_stroke);
-  strokeWeight(4);
-  noFill();
   fill('white')
   textAlign(CENTER);
   textSize(windowHeight/10);
-  text("Tap/Click to Start", windowWidth/2,windowHeight*.9)
+  text("Tap/Click to Start", windowWidth/10,windowHeight*.7, windowWidth*.8, windowHeight*.3)
 }
 else {
-  // var endTime = new Date();
-  // time=(endTime-startTime)/1000 - loadTime;
-  //print(loadTime)
-  //print(time)
+  var endTime = new Date();
+  time=(endTime-startTime)/1000 - loadTime;
+  print(loadTime)
+  print(time)
 
   //find the time the track has been playing for
-  var time = she.currentTime();
+  //var time = she.currentTime();
 
   //draw and move all the hearts
   //var t0 = performance.now();
@@ -238,7 +233,8 @@ else {
     window.location = 'index_mobile.html';
   }
 }
-  //jumps back to index page again (at 340)
+
+console.log(time);
 }
 
 function touchStarted() {
@@ -252,4 +248,8 @@ function touchStarted() {
   //adds a heart to the hearts array on mouse click ot screen tap
   var time = she.currentTime();
   hearts.push(new Heart(time-1, mouseX, mouseY));
+  loadTime = (new Date()-startTime)/1000;
+  print("loadtime is")
+  print(loadTime)
+  print("dome created")
 }
