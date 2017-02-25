@@ -1,5 +1,5 @@
 //hearts spawn too high wen phone tuned sideways and then back again, use canvas size instead of window size? Ya.. this
-console.log("version whatup");
+console.log("version sup");
 
 var table;
 var time = 0;
@@ -185,8 +185,8 @@ if (animate == 0){
 else {
   var endTime = new Date();
   time=(endTime-startTime)/1000 - loadTime;
-  print(loadTime)
-  print(time)
+  //print(loadTime)
+  //print(time)
 
   //find the time the track has been playing for
   //var time = she.currentTime();
@@ -235,7 +235,6 @@ else {
   }
 }
 
-console.log(time);
 }
 
 function touchStarted() {
@@ -243,14 +242,15 @@ function touchStarted() {
     animate = 1;
     she.setVolume(0.1);
     she.play();
+    loadTime = (new Date()-startTime)/1000;
+    //print("loadtime is")
+    //print(loadTime)
+    //print("dome created")
   }
 
 
   //adds a heart to the hearts array on mouse click ot screen tap
   var time = she.currentTime();
   hearts.push(new Heart(time-1, mouseX, mouseY));
-  loadTime = (new Date()-startTime)/1000;
-  print("loadtime is")
-  print(loadTime)
-  print("dome created")
+
 }
