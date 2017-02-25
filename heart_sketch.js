@@ -1,5 +1,5 @@
 //hearts spawn too high wen phone tuned sideways and then back again, use canvas size instead of window size? Ya.. this
-console.log("version sup");
+console.log("version hello");
 
 var table;
 var time = 0;
@@ -213,6 +213,9 @@ else {
   for (var i = 0; i < messages.length; i++) {
     messages[i].display(time)
   }
+  fill('black')
+  textSize(20)
+  text(floor(time),50,50)
   //var t1 = performance.now();
 
 // //draws a small hearrt under the mouse cursor
