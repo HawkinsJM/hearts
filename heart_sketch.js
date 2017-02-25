@@ -232,13 +232,13 @@ else {
   // }
 
 
-  if (time>15) {
+  if (time>340) {
     //location.href = 'index.html'; (desktop ony)
     //window.location.href = 'index_mobile.html';
     window.location = 'index_mobile.html';
   }
 }
-  //jumps back to index page again (at 353)
+  //jumps back to index page again (at 340)
 }
 
 function touchStarted() {
