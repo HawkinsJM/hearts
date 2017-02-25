@@ -184,7 +184,7 @@ if (animate == 0){
   fill('white')
   textAlign(CENTER);
   textSize(windowHeight/10);
-  text("Tap/Click", windowWidth/2,windowHeight*.9)
+  text("Tap/Click to Start", windowWidth/2,windowHeight*.9)
 }
 else {
   // var endTime = new Date();
